@@ -1,0 +1,776 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="mapbox/mapbox-gl.css">
+        <link rel="stylesheet" href="css/qgis2web.css">
+        <style>
+        #map {
+            width: 100%;
+            height: 480px;
+        }
+
+        </style>
+        <title>2020政黨票選舉地圖</title>
+    </head>
+    <body>
+
+
+        <div id="map">
+            <nav id="menu"></nav>
+              <div id="distance" class="distance-container"></div>
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="./mapbox/mapbox-gl.js"></script>
+        <script src="data/_0.js"></script>
+        <script src="data/_1.js"></script>
+        <script src="data/_2.js"></script>
+        <script src="data/_3.js"></script>
+        <script src="data/_4.js"></script>
+        <script src="data/_5.js"></script>
+        <script src="data/_6.js"></script>
+        <script src="data/_7.js"></script>
+        <script src="data/_8.js"></script>
+        <script src="data/_9.js"></script>
+        <script src="data/_10.js"></script>
+        <script src="data/_11.js"></script>
+<script src="./mapbox/style.js"></script>
+<script src="./js/Autolinker.min.js"></script>
+<script>
+var map = new mapboxgl.Map({
+ container: 'map',
+ style: styleJSON,
+ center: [121,23.7],
+ zoom: 6.5,
+ maxZoom:10,
+ minZoom:6,
+ bearing: 360.0,
+ attributionControl: false
+});
+map.addControl(new mapboxgl.NavigationControl(), 'top-left');
+map.addControl(new mapboxgl.AttributionControl({
+    customAttribution: '<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://github.com/mapbox/mapbox-gl-js" target="_blank">Mapbox GL JS</a> &middot; <a href="https://qgis.org" target="_blank">QGIS</a>',
+    compact: false
+}));
+var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+
+map.on('click', 'lyr__0_0', function (e) {
+    var description = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (e.features[0].properties['CTNAME'] !== null ? autolinker.link(e.features[0].properties['CTNAME'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">民進黨</th>\
+                        <td>' + (e.features[0].properties['民進黨'] !== null ? autolinker.link(e.features[0].properties['民進黨'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">國民黨</th>\
+                        <td>' + (e.features[0].properties['國民黨'] !== null ? autolinker.link(e.features[0].properties['國民黨'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">民眾黨</th>\
+                        <td>' + (e.features[0].properties['民眾黨'] !== null ? autolinker.link(e.features[0].properties['民眾黨'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">時代力量</th>\
+                        <td>' + (e.features[0].properties['時代力量'] !== null ? autolinker.link(e.features[0].properties['時代力量'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">親民黨</th>\
+                        <td>' + (e.features[0].properties['親民黨'] !== null ? autolinker.link(e.features[0].properties['親民黨'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">台灣基進</th>\
+                        <td>' + (e.features[0].properties['台灣基進'] !== null ? autolinker.link(e.features[0].properties['台灣基進'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">綠黨</th>\
+                        <td>' + (e.features[0].properties['綠黨'] !== null ? autolinker.link(e.features[0].properties['綠黨'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">新黨</th>\
+                        <td>' + (e.features[0].properties['新黨'] !== null ? autolinker.link(e.features[0].properties['新黨'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">一邊一國</th>\
+                        <td>' + (e.features[0].properties['一邊一國'] !== null ? autolinker.link(e.features[0].properties['一邊一國'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">安定力量</th>\
+                        <td>' + (e.features[0].properties['安定力量'] !== null ? autolinker.link(e.features[0].properties['安定力量'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>'
+
+    new mapboxgl.Popup()
+        .setLngLat(e.lngLat)
+        .setHTML(description)
+        .addTo(map);
+});
+
+// Change the cursor to a pointer when the mouse is over the places layer.
+map.on('mouseenter', 'lyr__0_0', function () {
+    map.getCanvas().style.cursor = 'pointer';
+});
+
+// Change it back to a pointer when it leaves.
+map.on('mouseleave', 'lyr__0_0', function () {
+    map.getCanvas().style.cursor = '';
+});
+map.on('click', 'lyr__1_0', function (e) {
+    var description = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (e.features[0].properties['CTNAME'] !== null ? autolinker.link(e.features[0].properties['CTNAME'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">民進黨</th>\
+                        <td>' + (e.features[0].properties['民進黨'] !== null ? autolinker.link(e.features[0].properties['民進黨'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">國民黨</th>\
+                        <td>' + (e.features[0].properties['國民黨'] !== null ? autolinker.link(e.features[0].properties['國民黨'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">民眾黨</th>\
+                        <td>' + (e.features[0].properties['民眾黨'] !== null ? autolinker.link(e.features[0].properties['民眾黨'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">時代力量</th>\
+                        <td>' + (e.features[0].properties['時代力量'] !== null ? autolinker.link(e.features[0].properties['時代力量'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">親民黨</th>\
+                        <td>' + (e.features[0].properties['親民黨'] !== null ? autolinker.link(e.features[0].properties['親民黨'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">台灣基進</th>\
+                        <td>' + (e.features[0].properties['台灣基進'] !== null ? autolinker.link(e.features[0].properties['台灣基進'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">綠黨</th>\
+                        <td>' + (e.features[0].properties['綠黨'] !== null ? autolinker.link(e.features[0].properties['綠黨'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">新黨</th>\
+                        <td>' + (e.features[0].properties['新黨'] !== null ? autolinker.link(e.features[0].properties['新黨'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">一邊一國</th>\
+                        <td>' + (e.features[0].properties['一邊一國'] !== null ? autolinker.link(e.features[0].properties['一邊一國'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">安定力量</th>\
+                        <td>' + (e.features[0].properties['安定力量'] !== null ? autolinker.link(e.features[0].properties['安定力量'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>'
+
+    new mapboxgl.Popup()
+        .setLngLat(e.lngLat)
+        .setHTML(description)
+        .addTo(map);
+});
+
+// Change the cursor to a pointer when the mouse is over the places layer.
+map.on('mouseenter', 'lyr__1_0', function () {
+    map.getCanvas().style.cursor = 'pointer';
+});
+
+// Change it back to a pointer when it leaves.
+map.on('mouseleave', 'lyr__1_0', function () {
+    map.getCanvas().style.cursor = '';
+});
+map.on('click', 'lyr__2_0', function (e) {
+    var description = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (e.features[0].properties['CTNAME'] !== null ? autolinker.link(e.features[0].properties['CTNAME'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">民進黨</th>\
+                        <td>' + (e.features[0].properties['民進黨'] !== null ? autolinker.link(e.features[0].properties['民進黨'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">國民黨</th>\
+                        <td>' + (e.features[0].properties['國民黨'] !== null ? autolinker.link(e.features[0].properties['國民黨'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">民眾黨</th>\
+                        <td>' + (e.features[0].properties['民眾黨'] !== null ? autolinker.link(e.features[0].properties['民眾黨'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">時代力量</th>\
+                        <td>' + (e.features[0].properties['時代力量'] !== null ? autolinker.link(e.features[0].properties['時代力量'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">親民黨</th>\
+                        <td>' + (e.features[0].properties['親民黨'] !== null ? autolinker.link(e.features[0].properties['親民黨'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">台灣基進</th>\
+                        <td>' + (e.features[0].properties['台灣基進'] !== null ? autolinker.link(e.features[0].properties['台灣基進'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">綠黨</th>\
+                        <td>' + (e.features[0].properties['綠黨'] !== null ? autolinker.link(e.features[0].properties['綠黨'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">新黨</th>\
+                        <td>' + (e.features[0].properties['新黨'] !== null ? autolinker.link(e.features[0].properties['新黨'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">一邊一國</th>\
+                        <td>' + (e.features[0].properties['一邊一國'] !== null ? autolinker.link(e.features[0].properties['一邊一國'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">安定力量</th>\
+                        <td>' + (e.features[0].properties['安定力量'] !== null ? autolinker.link(e.features[0].properties['安定力量'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>'
+
+    new mapboxgl.Popup()
+        .setLngLat(e.lngLat)
+        .setHTML(description)
+        .addTo(map);
+});
+
+// Change the cursor to a pointer when the mouse is over the places layer.
+map.on('mouseenter', 'lyr__2_0', function () {
+    map.getCanvas().style.cursor = 'pointer';
+});
+
+// Change it back to a pointer when it leaves.
+map.on('mouseleave', 'lyr__2_0', function () {
+    map.getCanvas().style.cursor = '';
+});
+map.on('click', 'lyr__3_0', function (e) {
+    var description = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (e.features[0].properties['CTNAME'] !== null ? autolinker.link(e.features[0].properties['CTNAME'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">民進黨</th>\
+                        <td>' + (e.features[0].properties['民進黨'] !== null ? autolinker.link(e.features[0].properties['民進黨'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">國民黨</th>\
+                        <td>' + (e.features[0].properties['國民黨'] !== null ? autolinker.link(e.features[0].properties['國民黨'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">民眾黨</th>\
+                        <td>' + (e.features[0].properties['民眾黨'] !== null ? autolinker.link(e.features[0].properties['民眾黨'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">時代力量</th>\
+                        <td>' + (e.features[0].properties['時代力量'] !== null ? autolinker.link(e.features[0].properties['時代力量'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">親民黨</th>\
+                        <td>' + (e.features[0].properties['親民黨'] !== null ? autolinker.link(e.features[0].properties['親民黨'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">台灣基進</th>\
+                        <td>' + (e.features[0].properties['台灣基進'] !== null ? autolinker.link(e.features[0].properties['台灣基進'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">綠黨</th>\
+                        <td>' + (e.features[0].properties['綠黨'] !== null ? autolinker.link(e.features[0].properties['綠黨'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">新黨</th>\
+                        <td>' + (e.features[0].properties['新黨'] !== null ? autolinker.link(e.features[0].properties['新黨'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">一邊一國</th>\
+                        <td>' + (e.features[0].properties['一邊一國'] !== null ? autolinker.link(e.features[0].properties['一邊一國'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">安定力量</th>\
+                        <td>' + (e.features[0].properties['安定力量'] !== null ? autolinker.link(e.features[0].properties['安定力量'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>'
+
+    new mapboxgl.Popup()
+        .setLngLat(e.lngLat)
+        .setHTML(description)
+        .addTo(map);
+});
+
+// Change the cursor to a pointer when the mouse is over the places layer.
+map.on('mouseenter', 'lyr__3_0', function () {
+    map.getCanvas().style.cursor = 'pointer';
+});
+
+// Change it back to a pointer when it leaves.
+map.on('mouseleave', 'lyr__3_0', function () {
+    map.getCanvas().style.cursor = '';
+});
+map.on('click', 'lyr__4_0', function (e) {
+    var description = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (e.features[0].properties['CTNAME'] !== null ? autolinker.link(e.features[0].properties['CTNAME'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">民進黨</th>\
+                        <td>' + (e.features[0].properties['民進黨'] !== null ? autolinker.link(e.features[0].properties['民進黨'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">國民黨</th>\
+                        <td>' + (e.features[0].properties['國民黨'] !== null ? autolinker.link(e.features[0].properties['國民黨'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">民眾黨</th>\
+                        <td>' + (e.features[0].properties['民眾黨'] !== null ? autolinker.link(e.features[0].properties['民眾黨'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">時代力量</th>\
+                        <td>' + (e.features[0].properties['時代力量'] !== null ? autolinker.link(e.features[0].properties['時代力量'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">親民黨</th>\
+                        <td>' + (e.features[0].properties['親民黨'] !== null ? autolinker.link(e.features[0].properties['親民黨'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">台灣基進</th>\
+                        <td>' + (e.features[0].properties['台灣基進'] !== null ? autolinker.link(e.features[0].properties['台灣基進'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">綠黨</th>\
+                        <td>' + (e.features[0].properties['綠黨'] !== null ? autolinker.link(e.features[0].properties['綠黨'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">新黨</th>\
+                        <td>' + (e.features[0].properties['新黨'] !== null ? autolinker.link(e.features[0].properties['新黨'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">一邊一國</th>\
+                        <td>' + (e.features[0].properties['一邊一國'] !== null ? autolinker.link(e.features[0].properties['一邊一國'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">安定力量</th>\
+                        <td>' + (e.features[0].properties['安定力量'] !== null ? autolinker.link(e.features[0].properties['安定力量'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>'
+
+    new mapboxgl.Popup()
+        .setLngLat(e.lngLat)
+        .setHTML(description)
+        .addTo(map);
+});
+
+// Change the cursor to a pointer when the mouse is over the places layer.
+map.on('mouseenter', 'lyr__4_0', function () {
+    map.getCanvas().style.cursor = 'pointer';
+});
+
+// Change it back to a pointer when it leaves.
+map.on('mouseleave', 'lyr__4_0', function () {
+    map.getCanvas().style.cursor = '';
+});
+map.on('click', 'lyr__5_0', function (e) {
+    var description = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (e.features[0].properties['CTNAME'] !== null ? autolinker.link(e.features[0].properties['CTNAME'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">民進黨</th>\
+                        <td>' + (e.features[0].properties['民進黨'] !== null ? autolinker.link(e.features[0].properties['民進黨'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">國民黨</th>\
+                        <td>' + (e.features[0].properties['國民黨'] !== null ? autolinker.link(e.features[0].properties['國民黨'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">民眾黨</th>\
+                        <td>' + (e.features[0].properties['民眾黨'] !== null ? autolinker.link(e.features[0].properties['民眾黨'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">時代力量</th>\
+                        <td>' + (e.features[0].properties['時代力量'] !== null ? autolinker.link(e.features[0].properties['時代力量'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">親民黨</th>\
+                        <td>' + (e.features[0].properties['親民黨'] !== null ? autolinker.link(e.features[0].properties['親民黨'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">台灣基進</th>\
+                        <td>' + (e.features[0].properties['台灣基進'] !== null ? autolinker.link(e.features[0].properties['台灣基進'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">綠黨</th>\
+                        <td>' + (e.features[0].properties['綠黨'] !== null ? autolinker.link(e.features[0].properties['綠黨'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">新黨</th>\
+                        <td>' + (e.features[0].properties['新黨'] !== null ? autolinker.link(e.features[0].properties['新黨'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">一邊一國</th>\
+                        <td>' + (e.features[0].properties['一邊一國'] !== null ? autolinker.link(e.features[0].properties['一邊一國'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">安定力量</th>\
+                        <td>' + (e.features[0].properties['安定力量'] !== null ? autolinker.link(e.features[0].properties['安定力量'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>'
+
+    new mapboxgl.Popup()
+        .setLngLat(e.lngLat)
+        .setHTML(description)
+        .addTo(map);
+});
+
+// Change the cursor to a pointer when the mouse is over the places layer.
+map.on('mouseenter', 'lyr__5_0', function () {
+    map.getCanvas().style.cursor = 'pointer';
+});
+
+// Change it back to a pointer when it leaves.
+map.on('mouseleave', 'lyr__5_0', function () {
+    map.getCanvas().style.cursor = '';
+});
+map.on('click', 'lyr__6_0', function (e) {
+    var description = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (e.features[0].properties['CTNAME'] !== null ? autolinker.link(e.features[0].properties['CTNAME'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">民進黨</th>\
+                        <td>' + (e.features[0].properties['民進黨'] !== null ? autolinker.link(e.features[0].properties['民進黨'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">國民黨</th>\
+                        <td>' + (e.features[0].properties['國民黨'] !== null ? autolinker.link(e.features[0].properties['國民黨'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">民眾黨</th>\
+                        <td>' + (e.features[0].properties['民眾黨'] !== null ? autolinker.link(e.features[0].properties['民眾黨'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">時代力量</th>\
+                        <td>' + (e.features[0].properties['時代力量'] !== null ? autolinker.link(e.features[0].properties['時代力量'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">親民黨</th>\
+                        <td>' + (e.features[0].properties['親民黨'] !== null ? autolinker.link(e.features[0].properties['親民黨'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">台灣基進</th>\
+                        <td>' + (e.features[0].properties['台灣基進'] !== null ? autolinker.link(e.features[0].properties['台灣基進'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">綠黨</th>\
+                        <td>' + (e.features[0].properties['綠黨'] !== null ? autolinker.link(e.features[0].properties['綠黨'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">新黨</th>\
+                        <td>' + (e.features[0].properties['新黨'] !== null ? autolinker.link(e.features[0].properties['新黨'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">一邊一國</th>\
+                        <td>' + (e.features[0].properties['一邊一國'] !== null ? autolinker.link(e.features[0].properties['一邊一國'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">安定力量</th>\
+                        <td>' + (e.features[0].properties['安定力量'] !== null ? autolinker.link(e.features[0].properties['安定力量'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>'
+
+    new mapboxgl.Popup()
+        .setLngLat(e.lngLat)
+        .setHTML(description)
+        .addTo(map);
+});
+
+// Change the cursor to a pointer when the mouse is over the places layer.
+map.on('mouseenter', 'lyr__6_0', function () {
+    map.getCanvas().style.cursor = 'pointer';
+});
+
+// Change it back to a pointer when it leaves.
+map.on('mouseleave', 'lyr__6_0', function () {
+    map.getCanvas().style.cursor = '';
+});
+map.on('click', 'lyr__7_0', function (e) {
+    var description = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (e.features[0].properties['CTNAME'] !== null ? autolinker.link(e.features[0].properties['CTNAME'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">民進黨</th>\
+                        <td>' + (e.features[0].properties['民進黨'] !== null ? autolinker.link(e.features[0].properties['民進黨'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">國民黨</th>\
+                        <td>' + (e.features[0].properties['國民黨'] !== null ? autolinker.link(e.features[0].properties['國民黨'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">民眾黨</th>\
+                        <td>' + (e.features[0].properties['民眾黨'] !== null ? autolinker.link(e.features[0].properties['民眾黨'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">時代力量</th>\
+                        <td>' + (e.features[0].properties['時代力量'] !== null ? autolinker.link(e.features[0].properties['時代力量'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">親民黨</th>\
+                        <td>' + (e.features[0].properties['親民黨'] !== null ? autolinker.link(e.features[0].properties['親民黨'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">台灣基進</th>\
+                        <td>' + (e.features[0].properties['台灣基進'] !== null ? autolinker.link(e.features[0].properties['台灣基進'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">綠黨</th>\
+                        <td>' + (e.features[0].properties['綠黨'] !== null ? autolinker.link(e.features[0].properties['綠黨'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">新黨</th>\
+                        <td>' + (e.features[0].properties['新黨'] !== null ? autolinker.link(e.features[0].properties['新黨'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">一邊一國</th>\
+                        <td>' + (e.features[0].properties['一邊一國'] !== null ? autolinker.link(e.features[0].properties['一邊一國'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">安定力量</th>\
+                        <td>' + (e.features[0].properties['安定力量'] !== null ? autolinker.link(e.features[0].properties['安定力量'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>'
+
+    new mapboxgl.Popup()
+        .setLngLat(e.lngLat)
+        .setHTML(description)
+        .addTo(map);
+});
+
+// Change the cursor to a pointer when the mouse is over the places layer.
+map.on('mouseenter', 'lyr__7_0', function () {
+    map.getCanvas().style.cursor = 'pointer';
+});
+
+// Change it back to a pointer when it leaves.
+map.on('mouseleave', 'lyr__7_0', function () {
+    map.getCanvas().style.cursor = '';
+});
+map.on('click', 'lyr__8_0', function (e) {
+    var description = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (e.features[0].properties['CTNAME'] !== null ? autolinker.link(e.features[0].properties['CTNAME'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">民進黨</th>\
+                        <td>' + (e.features[0].properties['民進黨'] !== null ? autolinker.link(e.features[0].properties['民進黨'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">國民黨</th>\
+                        <td>' + (e.features[0].properties['國民黨'] !== null ? autolinker.link(e.features[0].properties['國民黨'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">民眾黨</th>\
+                        <td>' + (e.features[0].properties['民眾黨'] !== null ? autolinker.link(e.features[0].properties['民眾黨'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">時代力量</th>\
+                        <td>' + (e.features[0].properties['時代力量'] !== null ? autolinker.link(e.features[0].properties['時代力量'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">親民黨</th>\
+                        <td>' + (e.features[0].properties['親民黨'] !== null ? autolinker.link(e.features[0].properties['親民黨'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">台灣基進</th>\
+                        <td>' + (e.features[0].properties['台灣基進'] !== null ? autolinker.link(e.features[0].properties['台灣基進'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">綠黨</th>\
+                        <td>' + (e.features[0].properties['綠黨'] !== null ? autolinker.link(e.features[0].properties['綠黨'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">新黨</th>\
+                        <td>' + (e.features[0].properties['新黨'] !== null ? autolinker.link(e.features[0].properties['新黨'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">一邊一國</th>\
+                        <td>' + (e.features[0].properties['一邊一國'] !== null ? autolinker.link(e.features[0].properties['一邊一國'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">安定力量</th>\
+                        <td>' + (e.features[0].properties['安定力量'] !== null ? autolinker.link(e.features[0].properties['安定力量'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>'
+
+    new mapboxgl.Popup()
+        .setLngLat(e.lngLat)
+        .setHTML(description)
+        .addTo(map);
+});
+
+// Change the cursor to a pointer when the mouse is over the places layer.
+map.on('mouseenter', 'lyr__8_0', function () {
+    map.getCanvas().style.cursor = 'pointer';
+});
+
+// Change it back to a pointer when it leaves.
+map.on('mouseleave', 'lyr__8_0', function () {
+    map.getCanvas().style.cursor = '';
+});
+map.on('click', 'lyr__9_0', function (e) {
+    var description = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (e.features[0].properties['CTNAME'] !== null ? autolinker.link(e.features[0].properties['CTNAME'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">民進黨</th>\
+                        <td>' + (e.features[0].properties['民進黨'] !== null ? autolinker.link(e.features[0].properties['民進黨'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">國民黨</th>\
+                        <td>' + (e.features[0].properties['國民黨'] !== null ? autolinker.link(e.features[0].properties['國民黨'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">民眾黨</th>\
+                        <td>' + (e.features[0].properties['民眾黨'] !== null ? autolinker.link(e.features[0].properties['民眾黨'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">時代力量</th>\
+                        <td>' + (e.features[0].properties['時代力量'] !== null ? autolinker.link(e.features[0].properties['時代力量'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">親民黨</th>\
+                        <td>' + (e.features[0].properties['親民黨'] !== null ? autolinker.link(e.features[0].properties['親民黨'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">台灣基進</th>\
+                        <td>' + (e.features[0].properties['台灣基進'] !== null ? autolinker.link(e.features[0].properties['台灣基進'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">綠黨</th>\
+                        <td>' + (e.features[0].properties['綠黨'] !== null ? autolinker.link(e.features[0].properties['綠黨'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">新黨</th>\
+                        <td>' + (e.features[0].properties['新黨'] !== null ? autolinker.link(e.features[0].properties['新黨'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">一邊一國</th>\
+                        <td>' + (e.features[0].properties['一邊一國'] !== null ? autolinker.link(e.features[0].properties['一邊一國'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">安定力量</th>\
+                        <td>' + (e.features[0].properties['安定力量'] !== null ? autolinker.link(e.features[0].properties['安定力量'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>'
+
+    new mapboxgl.Popup()
+        .setLngLat(e.lngLat)
+        .setHTML(description)
+        .addTo(map);
+});
+
+// Change the cursor to a pointer when the mouse is over the places layer.
+map.on('mouseenter', 'lyr__9_0', function () {
+    map.getCanvas().style.cursor = 'pointer';
+});
+
+// Change it back to a pointer when it leaves.
+map.on('mouseleave', 'lyr__9_0', function () {
+    map.getCanvas().style.cursor = '';
+});
+map.on('click', 'lyr__10_0', function (e) {
+    var description = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (e.features[0].properties['OBJECTID'] !== null ? autolinker.link(e.features[0].properties['OBJECTID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (e.features[0].properties['LEFT_FID'] !== null ? autolinker.link(e.features[0].properties['LEFT_FID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (e.features[0].properties['RIGHT_FID'] !== null ? autolinker.link(e.features[0].properties['RIGHT_FID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (e.features[0].properties['Shape_Leng'] !== null ? autolinker.link(e.features[0].properties['Shape_Leng'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>'
+
+    new mapboxgl.Popup()
+        .setLngLat(e.lngLat)
+        .setHTML(description)
+        .addTo(map);
+});
+
+// Change the cursor to a pointer when the mouse is over the places layer.
+map.on('mouseenter', 'lyr__10_0', function () {
+    map.getCanvas().style.cursor = 'pointer';
+});
+
+// Change it back to a pointer when it leaves.
+map.on('mouseleave', 'lyr__10_0', function () {
+    map.getCanvas().style.cursor = '';
+});
+map.on('click', 'lyr__11_0', function (e) {
+    var description = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (e.features[0].properties['OBJECTID'] !== null ? autolinker.link(e.features[0].properties['OBJECTID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (e.features[0].properties['LEFT_FID'] !== null ? autolinker.link(e.features[0].properties['LEFT_FID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (e.features[0].properties['RIGHT_FID'] !== null ? autolinker.link(e.features[0].properties['RIGHT_FID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (e.features[0].properties['Shape_Leng'] !== null ? autolinker.link(e.features[0].properties['Shape_Leng'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>'
+
+    new mapboxgl.Popup()
+        .setLngLat(e.lngLat)
+        .setHTML(description)
+        .addTo(map);
+});
+
+// Change the cursor to a pointer when the mouse is over the places layer.
+map.on('mouseenter', 'lyr__11_0', function () {
+    map.getCanvas().style.cursor = 'pointer';
+});
+
+// Change it back to a pointer when it leaves.
+map.on('mouseleave', 'lyr__11_0', function () {
+    map.getCanvas().style.cursor = '';
+});
+    var toggleableLayerIds = ['lyr__9_0', '民進黨','lyr__8_0', '國民黨','lyr__7_0', '民眾黨','lyr__6_0', '時代力量','lyr__5_0', '親民黨','lyr__4_0', '台灣基進','lyr__3_0', '綠黨','lyr__2_0', '新黨','lyr__1_0', '一邊一國','lyr__0_0', '安定力量'];
+
+    for (var i = 0; i < toggleableLayerIds.length; i=i+2) {
+        var id = toggleableLayerIds[i];
+        var layerName = toggleableLayerIds[i+1]
+
+        var link = document.createElement('a');
+        link.href = '#';
+        link.className = '';
+        link.layer = id;
+        link.textContent = layerName;
+        
+        link.onclick = function(e) {
+            var clickedLayer = this.layer;
+            e.preventDefault();
+            e.stopPropagation(); 
+            for (var j = 1; j < toggleableLayerIds.length; j=j+2) {
+                
+                if (clickedLayer === toggleableLayerIds[j-1]) {
+                	layers.children[(j-1)/2].className = 'active';
+                	map.setLayoutProperty(toggleableLayerIds[j-1], 'visibility', 'visible');
+                }
+                else {
+                	layers.children[(j-1)/2].className = '';
+                	map.setLayoutProperty(toggleableLayerIds[j-1], 'visibility', 'none');
+                }
+            }
+        };
+
+        var layers = document.getElementById('menu');
+        layers.appendChild(link);
+    }</script>
+    </body>
+</html>

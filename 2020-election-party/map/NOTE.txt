@@ -1,0 +1,93 @@
+#新增zoom限制、修改地圖中心位置
+var map = new mapboxgl.Map({
+ container: 'map',
+ style: styleJSON,
+ center: [121,23.5],
+ zoom: 7,
+ maxZoom: 11,
+ minZoom: 6,
+ bearing: 360.0,
+ attributionControl: false
+});
+
+#修改按鍵顏色 css/qgis2web.css==================
+         #menu a.active {
+            background-color: #f8f8f8;
+            color: #404040;
+        }
+
+         #menu a.active:hover {
+            color: #999;
+            background-color: #e8e8e8;
+        }
+
+#pop up文字 靠左靠右設定======================
+        th {
+            text-align: center;
+            vertical-align: top;
+        }
+        tr {
+            text-align: right;
+            vertical-align: top;
+        }
+
+#修改按鍵模式==============================
+2021.06.02新版
+    var toggleableLayerIds = ['lyr__9_0', '民進黨','lyr__8_0', '國民黨','lyr__7_0', '民眾黨','lyr__6_0', '時代力量','lyr__5_0', '親民黨','lyr__4_0', '台灣基進','lyr__3_0', '綠黨','lyr__2_0', '新黨','lyr__1_0', '一邊一國','lyr__0_0', '安定力量'];
+
+    for (var i = 0; i < toggleableLayerIds.length; i=i+2) {
+        var id = toggleableLayerIds[i];
+        var layerName = toggleableLayerIds[i+1]
+
+        var link = document.createElement('a');
+        link.href = '#';
+        link.className = '';
+        link.layer = id;
+        link.textContent = layerName;
+        
+        link.onclick = function(e) {
+            var clickedLayer = this.layer;
+            e.preventDefault();
+            e.stopPropagation(); 
+            for (var j = 1; j < toggleableLayerIds.length; j=j+2) {
+                
+                if (clickedLayer === toggleableLayerIds[j-1]) {
+                	layers.children[(j-1)/2].className = 'active';
+                	map.setLayoutProperty(toggleableLayerIds[j-1], 'visibility', 'visible');
+                }
+                else {
+                	layers.children[(j-1)/2].className = '';
+                	map.setLayoutProperty(toggleableLayerIds[j-1], 'visibility', 'none');
+                }
+            }
+        };
+
+
+2021.06.02原版
+    var toggleableLayerIds = ['lyr__11_0', '縣市界','lyr__10_0', '鄉鎮界','lyr__9_0', '民進黨','lyr__8_0', '國民黨','lyr__7_0', '民眾黨','lyr__6_0', '時代力量','lyr__5_0', '親民黨','lyr__4_0', '台灣基進','lyr__3_0', '綠黨','lyr__2_0', '新黨','lyr__1_0', '一邊一國','lyr__0_0', '安定力量'];
+
+    for (var i = 0; i < toggleableLayerIds.length; i=i+2) {
+        var id = toggleableLayerIds[i];
+        var layerName = toggleableLayerIds[i+1]
+
+        var link = document.createElement('a');
+        link.href = '#';
+        link.className = 'active';
+        link.layer = id;
+        link.textContent = layerName;
+
+        link.onclick = function (e) {
+            var clickedLayer = this.layer;
+            e.preventDefault();
+            e.stopPropagation();
+
+            var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
+
+            if (typeof visibility === 'undefined' || visibility == 'visible') {
+                map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+                this.className = '';
+            } else {
+                this.className = 'active';
+                map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+            }
+        };
